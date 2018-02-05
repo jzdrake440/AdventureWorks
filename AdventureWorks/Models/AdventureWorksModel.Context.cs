@@ -15,7 +15,102 @@ namespace AdventureWorks.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class AdventureWorks2017Entities : DbContext
+    //Adding interface for Dependecy Injection
+    public interface IAdventureWorks2017Entities
+    {
+            DbSet<AWBuildVersion> AWBuildVersions { get; set; }
+            DbSet<DatabaseLog> DatabaseLogs { get; set; }
+            DbSet<ErrorLog> ErrorLogs { get; set; }
+            DbSet<Department> Departments { get; set; }
+            DbSet<Employee> Employees { get; set; }
+            DbSet<EmployeeDepartmentHistory> EmployeeDepartmentHistories { get; set; }
+            DbSet<EmployeePayHistory> EmployeePayHistories { get; set; }
+            DbSet<JobCandidate> JobCandidates { get; set; }
+            DbSet<Shift> Shifts { get; set; }
+            DbSet<Address> Addresses { get; set; }
+            DbSet<AddressType> AddressTypes { get; set; }
+            DbSet<BusinessEntity> BusinessEntities { get; set; }
+            DbSet<BusinessEntityAddress> BusinessEntityAddresses { get; set; }
+            DbSet<BusinessEntityContact> BusinessEntityContacts { get; set; }
+            DbSet<ContactType> ContactTypes { get; set; }
+            DbSet<CountryRegion> CountryRegions { get; set; }
+            DbSet<EmailAddress> EmailAddresses { get; set; }
+            DbSet<Password> Passwords { get; set; }
+            DbSet<Person> People { get; set; }
+            DbSet<PersonPhone> PersonPhones { get; set; }
+            DbSet<PhoneNumberType> PhoneNumberTypes { get; set; }
+            DbSet<StateProvince> StateProvinces { get; set; }
+            DbSet<BillOfMaterial> BillOfMaterials { get; set; }
+            DbSet<Culture> Cultures { get; set; }
+            DbSet<Illustration> Illustrations { get; set; }
+            DbSet<Location> Locations { get; set; }
+            DbSet<Product> Products { get; set; }
+            DbSet<ProductCategory> ProductCategories { get; set; }
+            DbSet<ProductCostHistory> ProductCostHistories { get; set; }
+            DbSet<ProductDescription> ProductDescriptions { get; set; }
+            DbSet<ProductInventory> ProductInventories { get; set; }
+            DbSet<ProductListPriceHistory> ProductListPriceHistories { get; set; }
+            DbSet<ProductModel> ProductModels { get; set; }
+            DbSet<ProductModelIllustration> ProductModelIllustrations { get; set; }
+            DbSet<ProductModelProductDescriptionCulture> ProductModelProductDescriptionCultures { get; set; }
+            DbSet<ProductPhoto> ProductPhotoes { get; set; }
+            DbSet<ProductProductPhoto> ProductProductPhotoes { get; set; }
+            DbSet<ProductReview> ProductReviews { get; set; }
+            DbSet<ProductSubcategory> ProductSubcategories { get; set; }
+            DbSet<ScrapReason> ScrapReasons { get; set; }
+            DbSet<TransactionHistory> TransactionHistories { get; set; }
+            DbSet<TransactionHistoryArchive> TransactionHistoryArchives { get; set; }
+            DbSet<UnitMeasure> UnitMeasures { get; set; }
+            DbSet<WorkOrder> WorkOrders { get; set; }
+            DbSet<WorkOrderRouting> WorkOrderRoutings { get; set; }
+            DbSet<ProductVendor> ProductVendors { get; set; }
+            DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
+            DbSet<PurchaseOrderHeader> PurchaseOrderHeaders { get; set; }
+            DbSet<ShipMethod> ShipMethods { get; set; }
+            DbSet<Vendor> Vendors { get; set; }
+            DbSet<CountryRegionCurrency> CountryRegionCurrencies { get; set; }
+            DbSet<CreditCard> CreditCards { get; set; }
+            DbSet<Currency> Currencies { get; set; }
+            DbSet<CurrencyRate> CurrencyRates { get; set; }
+            DbSet<Customer> Customers { get; set; }
+            DbSet<PersonCreditCard> PersonCreditCards { get; set; }
+            DbSet<SalesOrderDetail> SalesOrderDetails { get; set; }
+            DbSet<SalesOrderHeader> SalesOrderHeaders { get; set; }
+            DbSet<SalesOrderHeaderSalesReason> SalesOrderHeaderSalesReasons { get; set; }
+            DbSet<SalesPerson> SalesPersons { get; set; }
+            DbSet<SalesPersonQuotaHistory> SalesPersonQuotaHistories { get; set; }
+            DbSet<SalesReason> SalesReasons { get; set; }
+            DbSet<SalesTaxRate> SalesTaxRates { get; set; }
+            DbSet<SalesTerritory> SalesTerritories { get; set; }
+            DbSet<SalesTerritoryHistory> SalesTerritoryHistories { get; set; }
+            DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+            DbSet<SpecialOffer> SpecialOffers { get; set; }
+            DbSet<SpecialOfferProduct> SpecialOfferProducts { get; set; }
+            DbSet<Store> Stores { get; set; }
+            DbSet<ProductDocument> ProductDocuments { get; set; }
+            DbSet<vEmployee> vEmployees { get; set; }
+            DbSet<vEmployeeDepartment> vEmployeeDepartments { get; set; }
+            DbSet<vEmployeeDepartmentHistory> vEmployeeDepartmentHistories { get; set; }
+            DbSet<vJobCandidate> vJobCandidates { get; set; }
+            DbSet<vJobCandidateEducation> vJobCandidateEducations { get; set; }
+            DbSet<vJobCandidateEmployment> vJobCandidateEmployments { get; set; }
+            DbSet<vAdditionalContactInfo> vAdditionalContactInfoes { get; set; }
+            DbSet<vStateProvinceCountryRegion> vStateProvinceCountryRegions { get; set; }
+            DbSet<vProductAndDescription> vProductAndDescriptions { get; set; }
+            DbSet<vProductModelCatalogDescription> vProductModelCatalogDescriptions { get; set; }
+            DbSet<vProductModelInstruction> vProductModelInstructions { get; set; }
+            DbSet<vVendorWithAddress> vVendorWithAddresses { get; set; }
+            DbSet<vVendorWithContact> vVendorWithContacts { get; set; }
+            DbSet<vIndividualCustomer> vIndividualCustomers { get; set; }
+            DbSet<vPersonDemographic> vPersonDemographics { get; set; }
+            DbSet<vSalesPerson> vSalesPersons { get; set; }
+            DbSet<vSalesPersonSalesByFiscalYear> vSalesPersonSalesByFiscalYears { get; set; }
+            DbSet<vStoreWithAddress> vStoreWithAddresses { get; set; }
+            DbSet<vStoreWithContact> vStoreWithContacts { get; set; }
+            DbSet<vStoreWithDemographic> vStoreWithDemographics { get; set; }
+    }
+    
+    public partial class AdventureWorks2017Entities : DbContext, IAdventureWorks2017Entities
     {
         public AdventureWorks2017Entities()
             : base("name=AdventureWorks2017Entities")

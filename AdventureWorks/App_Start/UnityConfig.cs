@@ -1,3 +1,4 @@
+using AdventureWorks.Models;
 using System;
 
 using Unity;
@@ -42,6 +43,7 @@ namespace AdventureWorks
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
+            container.RegisterType<IAdventureWorks2017Entities, AdventureWorks2017Entities>();
         }
     }
 }
