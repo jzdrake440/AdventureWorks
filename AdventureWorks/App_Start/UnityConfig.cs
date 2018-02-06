@@ -1,4 +1,5 @@
-using AdventureWorks.Models;
+using AdventureWorks.Models.Entity;
+using AutoMapper;
 using System;
 
 using Unity;
@@ -44,6 +45,7 @@ namespace AdventureWorks
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IAdventureWorks2017Entities, AdventureWorks2017Entities>();
+            container.RegisterInstance<IMapper>(MapperConfig.CreateMapper());
         }
     }
 }

@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -107,6 +110,9 @@
     </Reference>
     <Reference Include="Unity.Abstractions, Version=3.1.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.Abstractions.3.1.0\lib\net45\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.AspNet.WebApi, Version=5.0.11.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.AspNet.WebApi.5.0.11\lib\net45\Unity.AspNet.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Container, Version=5.5.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
       <HintPath>..\packages\Unity.Container.5.5.1\lib\net45\Unity.Container.dll</HintPath>
@@ -207,26 +213,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\MapperConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="App_Start\UnityWebApiActivator.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
-    <Compile Include="Models\Address.cs">
+    <Compile Include="Models\Dto\CustomerDto.cs" />
+    <Compile Include="Models\Entity\Address.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddressType.cs">
+    <Compile Include="Models\Entity\AddressType.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdventureWorksModel.Context.cs">
+    <Compile Include="Models\Entity\AdventureWorksModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AdventureWorksModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdventureWorksModel.cs">
+    <Compile Include="Models\Entity\AdventureWorksModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\AdventureWorksModel.Designer.cs">
+    <Compile Include="Models\Entity\AdventureWorksModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AdventureWorksModel.edmx</DependentUpon>
@@ -243,298 +252,298 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AWBuildVersion.cs">
+    <Compile Include="Models\View\AccountViewModels.cs" />
+    <Compile Include="Models\Entity\AWBuildVersion.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BillOfMaterial.cs">
+    <Compile Include="Models\Entity\BillOfMaterial.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BusinessEntity.cs">
+    <Compile Include="Models\Entity\BusinessEntity.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BusinessEntityAddress.cs">
+    <Compile Include="Models\Entity\BusinessEntityAddress.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BusinessEntityContact.cs">
+    <Compile Include="Models\Entity\BusinessEntityContact.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ContactType.cs">
+    <Compile Include="Models\Entity\ContactType.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CountryRegion.cs">
+    <Compile Include="Models\Entity\CountryRegion.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CountryRegionCurrency.cs">
+    <Compile Include="Models\Entity\CountryRegionCurrency.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CreditCard.cs">
+    <Compile Include="Models\Entity\CreditCard.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Culture.cs">
+    <Compile Include="Models\Entity\Culture.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Currency.cs">
+    <Compile Include="Models\Entity\Currency.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CurrencyRate.cs">
+    <Compile Include="Models\Entity\CurrencyRate.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Customer.cs">
+    <Compile Include="Models\Entity\Customer.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DatabaseLog.cs">
+    <Compile Include="Models\Entity\DatabaseLog.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Department.cs">
+    <Compile Include="Models\Entity\Department.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EmailAddress.cs">
+    <Compile Include="Models\Entity\EmailAddress.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee.cs">
+    <Compile Include="Models\Entity\Employee.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EmployeeDepartmentHistory.cs">
+    <Compile Include="Models\Entity\EmployeeDepartmentHistory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EmployeePayHistory.cs">
+    <Compile Include="Models\Entity\EmployeePayHistory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ErrorLog.cs">
+    <Compile Include="Models\Entity\ErrorLog.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Illustration.cs">
+    <Compile Include="Models\Entity\Illustration.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\JobCandidate.cs">
+    <Compile Include="Models\Entity\JobCandidate.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Location.cs">
+    <Compile Include="Models\Entity\Location.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Password.cs">
+    <Compile Include="Models\View\ManageViewModels.cs" />
+    <Compile Include="Models\Entity\Password.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Person.cs">
+    <Compile Include="Models\Entity\Person.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PersonCreditCard.cs">
+    <Compile Include="Models\Entity\PersonCreditCard.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PersonPhone.cs">
+    <Compile Include="Models\Entity\PersonPhone.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PhoneNumberType.cs">
+    <Compile Include="Models\Entity\PhoneNumberType.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Product.cs">
+    <Compile Include="Models\Entity\Product.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductCategory.cs">
+    <Compile Include="Models\Entity\ProductCategory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductCostHistory.cs">
+    <Compile Include="Models\Entity\ProductCostHistory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductDescription.cs">
+    <Compile Include="Models\Entity\ProductDescription.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductDocument.cs">
+    <Compile Include="Models\Entity\ProductDocument.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductInventory.cs">
+    <Compile Include="Models\Entity\ProductInventory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductListPriceHistory.cs">
+    <Compile Include="Models\Entity\ProductListPriceHistory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductModel.cs">
+    <Compile Include="Models\Entity\ProductModel.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductModelIllustration.cs">
+    <Compile Include="Models\Entity\ProductModelIllustration.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductModelProductDescriptionCulture.cs">
+    <Compile Include="Models\Entity\ProductModelProductDescriptionCulture.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductPhoto.cs">
+    <Compile Include="Models\Entity\ProductPhoto.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductProductPhoto.cs">
+    <Compile Include="Models\Entity\ProductProductPhoto.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductReview.cs">
+    <Compile Include="Models\Entity\ProductReview.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductSubcategory.cs">
+    <Compile Include="Models\Entity\ProductSubcategory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductVendor.cs">
+    <Compile Include="Models\Entity\ProductVendor.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PurchaseOrderDetail.cs">
+    <Compile Include="Models\Entity\PurchaseOrderDetail.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\PurchaseOrderHeader.cs">
+    <Compile Include="Models\Entity\PurchaseOrderHeader.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesOrderDetail.cs">
+    <Compile Include="Models\Entity\SalesOrderDetail.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesOrderHeader.cs">
+    <Compile Include="Models\Entity\SalesOrderHeader.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesOrderHeaderSalesReason.cs">
+    <Compile Include="Models\Entity\SalesOrderHeaderSalesReason.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesPerson.cs">
+    <Compile Include="Models\Entity\SalesPerson.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesPersonQuotaHistory.cs">
+    <Compile Include="Models\Entity\SalesPersonQuotaHistory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesReason.cs">
+    <Compile Include="Models\Entity\SalesReason.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesTaxRate.cs">
+    <Compile Include="Models\Entity\SalesTaxRate.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesTerritory.cs">
+    <Compile Include="Models\Entity\SalesTerritory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SalesTerritoryHistory.cs">
+    <Compile Include="Models\Entity\SalesTerritoryHistory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ScrapReason.cs">
+    <Compile Include="Models\Entity\ScrapReason.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Shift.cs">
+    <Compile Include="Models\Entity\Shift.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ShipMethod.cs">
+    <Compile Include="Models\Entity\ShipMethod.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ShoppingCartItem.cs">
+    <Compile Include="Models\Entity\ShoppingCartItem.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SpecialOffer.cs">
+    <Compile Include="Models\Entity\SpecialOffer.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SpecialOfferProduct.cs">
+    <Compile Include="Models\Entity\SpecialOfferProduct.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StateProvince.cs">
+    <Compile Include="Models\Entity\StateProvince.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Store.cs">
+    <Compile Include="Models\Entity\Store.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TransactionHistory.cs">
+    <Compile Include="Models\Entity\TransactionHistory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TransactionHistoryArchive.cs">
+    <Compile Include="Models\Entity\TransactionHistoryArchive.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ufnGetContactInformation_Result.cs">
+    <Compile Include="Models\Entity\ufnGetContactInformation_Result.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UnitMeasure.cs">
+    <Compile Include="Models\Entity\UnitMeasure.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\uspGetBillOfMaterials_Result.cs">
+    <Compile Include="Models\Entity\uspGetBillOfMaterials_Result.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\uspGetEmployeeManagers_Result.cs">
+    <Compile Include="Models\Entity\uspGetEmployeeManagers_Result.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\uspGetManagerEmployees_Result.cs">
+    <Compile Include="Models\Entity\uspGetManagerEmployees_Result.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\uspGetWhereUsedProductID_Result.cs">
+    <Compile Include="Models\Entity\uspGetWhereUsedProductID_Result.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vAdditionalContactInfo.cs">
+    <Compile Include="Models\Entity\vAdditionalContactInfo.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vEmployee.cs">
+    <Compile Include="Models\Entity\vEmployee.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vEmployeeDepartment.cs">
+    <Compile Include="Models\Entity\vEmployeeDepartment.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vEmployeeDepartmentHistory.cs">
+    <Compile Include="Models\Entity\vEmployeeDepartmentHistory.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Vendor.cs">
+    <Compile Include="Models\Entity\Vendor.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vIndividualCustomer.cs">
+    <Compile Include="Models\Entity\vIndividualCustomer.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vJobCandidate.cs">
+    <Compile Include="Models\Entity\vJobCandidate.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vJobCandidateEducation.cs">
+    <Compile Include="Models\Entity\vJobCandidateEducation.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vJobCandidateEmployment.cs">
+    <Compile Include="Models\Entity\vJobCandidateEmployment.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vPersonDemographic.cs">
+    <Compile Include="Models\Entity\vPersonDemographic.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vProductAndDescription.cs">
+    <Compile Include="Models\Entity\vProductAndDescription.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vProductModelCatalogDescription.cs">
+    <Compile Include="Models\Entity\vProductModelCatalogDescription.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vProductModelInstruction.cs">
+    <Compile Include="Models\Entity\vProductModelInstruction.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vSalesPerson.cs">
+    <Compile Include="Models\Entity\vSalesPerson.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vSalesPersonSalesByFiscalYear.cs">
+    <Compile Include="Models\Entity\vSalesPersonSalesByFiscalYear.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vStateProvinceCountryRegion.cs">
+    <Compile Include="Models\Entity\vStateProvinceCountryRegion.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vStoreWithAddress.cs">
+    <Compile Include="Models\Entity\vStoreWithAddress.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vStoreWithContact.cs">
+    <Compile Include="Models\Entity\vStoreWithContact.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vStoreWithDemographic.cs">
+    <Compile Include="Models\Entity\vStoreWithDemographic.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vVendorWithAddress.cs">
+    <Compile Include="Models\Entity\vVendorWithAddress.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\vVendorWithContact.cs">
+    <Compile Include="Models\Entity\vVendorWithContact.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\WorkOrder.cs">
+    <Compile Include="Models\Entity\WorkOrder.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\WorkOrderRouting.cs">
+    <Compile Include="Models\Entity\WorkOrderRouting.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\AdventureWorksModel.Context.tt">
+    <Content Include="Models\Entity\AdventureWorksModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AdventureWorksModel.edmx</DependentUpon>
       <LastGenOutput>AdventureWorksModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\AdventureWorksModel.tt">
+    <Content Include="Models\Entity\AdventureWorksModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>AdventureWorksModel.edmx</DependentUpon>
       <LastGenOutput>AdventureWorksModel.cs</LastGenOutput>
@@ -550,11 +559,11 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\AdventureWorksModel.edmx">
+    <EntityDeploy Include="Models\Entity\AdventureWorksModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AdventureWorksModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\AdventureWorksModel.edmx.diagram">
+    <Content Include="Models\Entity\AdventureWorksModel.edmx.diagram">
       <DependentUpon>AdventureWorksModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -604,10 +613,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
