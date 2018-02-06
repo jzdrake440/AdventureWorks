@@ -3,6 +3,7 @@ using AutoMapper;
 using System;
 
 using Unity;
+using Unity.Lifetime;
 
 namespace AdventureWorks
 {
@@ -44,7 +45,7 @@ namespace AdventureWorks
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterType<IAdventureWorks2017Entities, AdventureWorks2017Entities>();
+            container.RegisterType<AdventureWorks2017Entities>(new HierarchicalLifetimeManager());
             container.RegisterInstance<IMapper>(MapperConfig.CreateMapper());
         }
     }

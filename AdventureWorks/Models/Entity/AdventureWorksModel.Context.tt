@@ -53,20 +53,7 @@ using System.Linq;
 }
 #>
 
-//Adding interface for Dependecy Injection
-<#=Accessibility.ForType(container)#> interface I<#=code.Escape(container)#>
-{
-<#
-foreach (var entitySet in container.BaseEntitySets.OfType<EntitySet>())
-{
-#>
-        <#=codeStringGenerator.InterfaceDbSet(entitySet)#>
-<#
-}
-#>
-}
-
-<#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, I<#=code.Escape(container)#>
+<#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext
 {
     public <#=code.Escape(container)#>()
         : base("name=<#=container.Name#>")
@@ -323,15 +310,6 @@ public class CodeStringGenerator
             CultureInfo.InvariantCulture,
             "{0} virtual DbSet<{1}> {2} {{ get; set; }}",
             Accessibility.ForReadOnlyProperty(entitySet),
-            _typeMapper.GetTypeName(entitySet.ElementType),
-            _code.Escape(entitySet));
-    }
-
-    public string InterfaceDbSet(EntitySet entitySet)
-    {
-        return string.Format(
-            CultureInfo.InvariantCulture,
-            "DbSet<{0}> {1} {{ get; set; }}",
             _typeMapper.GetTypeName(entitySet.ElementType),
             _code.Escape(entitySet));
     }
