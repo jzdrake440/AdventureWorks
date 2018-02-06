@@ -15,6 +15,13 @@ namespace AdventureWorks
             return new MapperConfiguration(c =>
             {
                 c.CreateMap<Customer, CustomerDto>();
+                c.CreateMap<Customer, CustomerDetailDto>();
+                c.CreateMap<Store, StoreDto>();
+                c.CreateMap<Store, StoreDetailDto>();
+                c.CreateMap<SalesTerritory, SalesTerritoryDto>();
+                c.CreateMap<SalesTerritory, SalesTerritoryDetailDto>();
+                c.CreateMap<Person, PersonDto>();
+                c.CreateMap<Person, PersonDetailDto>();
             }).CreateMapper();
 
         }

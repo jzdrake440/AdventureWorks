@@ -217,8 +217,12 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\UnityWebApiActivator.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\Api\CustomersController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Models\Dto\CustomerDto.cs" />
+    <Compile Include="Models\Dto\PersonDto.cs" />
+    <Compile Include="Models\Dto\SalesTerritoryDto.cs" />
+    <Compile Include="Models\Dto\StoreDto.cs" />
     <Compile Include="Models\Entity\Address.cs">
       <DependentUpon>AdventureWorksModel.tt</DependentUpon>
     </Compile>
@@ -616,6 +620,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Customers\" />
     <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
