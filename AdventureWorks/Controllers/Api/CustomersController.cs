@@ -1,12 +1,16 @@
-﻿using AdventureWorks.Models.Dto;
+﻿using AdventureWorks.Models.DataTables;
+using AdventureWorks.Models.Dto;
 using AdventureWorks.Models.Entity;
+using AdventureWorks.Utility;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using static AdventureWorks.Models.DataTables.DataTableServerSideRequest;
 
 namespace AdventureWorks.Controllers.Api
 {
@@ -23,9 +27,28 @@ namespace AdventureWorks.Controllers.Api
 
         // GET api/customer
         [HttpGet]
-        public IHttpActionResult GetCustomers()
+        public IHttpActionResult GetCustomers([FromUri]DataTableServerSideRequest request)
         {
-            return Ok(_mapper.Map<List<CustomerDto>>(_context.Customers.ToList()));
+            if (request == null)
+                return Ok(_mapper.Map<List<CustomerDto>>(_context.Customers.ToList()));
+
+            DataTableServerSideResponse<CustomerDto> response = new DataTableServerSideResponse<CustomerDto>
+            {
+                Draw = request.Draw,
+                RecordsTotal = _context.Customers.Count()
+            };
+
+            var data = _context.Customers.Where(DataTableUtility.SearchPredicate<Customer>(request)).ToList();
+            response.RecordsFiltered = data.Count();
+
+            if (data.Count <= 0)
+                response.Data = _mapper.Map<List<CustomerDto>>(data);
+            else if (data.Count < request.Start + request.Length)
+                response.Data = _mapper.Map<List<CustomerDto>>(data.GetRange(request.Start, data.Count - request.Length));
+            else
+                response.Data = _mapper.Map<List<CustomerDto>>(data.GetRange(request.Start, request.Length));
+            
+            return Ok(response);
         }
 
         // GET api/customer/5
