@@ -11,7 +11,8 @@ namespace AdventureWorks.Models.Entity
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -33,5 +34,35 @@ namespace AdventureWorks.Models.Entity
         public virtual Store Store { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SalesOrderHeader> SalesOrderHeaders { get; set; }
+
+        [NotMapped]
+        public string AccountType
+        {
+            get
+            {
+                if (Person != null)
+                    return "Person";
+
+                if (Store != null)
+                    return "Store";
+
+                return "Unknown";
+            }
+        }
+
+        [NotMapped]
+        public string DisplayName
+        {
+            get
+            {
+                if (Person != null)
+                    return Person.DisplayName;
+
+                if (Store != null)
+                    return Store.Name;
+
+                return "Unknown";
+            }
+        }
     }
 }

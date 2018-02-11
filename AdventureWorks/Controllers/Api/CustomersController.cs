@@ -30,10 +30,10 @@ namespace AdventureWorks.Controllers.Api
         public IHttpActionResult GetCustomers([FromUri]DataTableServerSideRequest request)
         {
             if (request == null) //called for all customers
-                return Ok(_mapper.Map<List<CustomerDto>>(_context.Customers.ToList()));
+                return Ok(_mapper.Map<List<CustomerDetailDto>>(_context.Customers.ToList()));
 
             //called specifically from DataTables api
-            DataTableServerSideResponse<CustomerDto> response = new DataTableServerSideResponse<CustomerDto>
+            DataTableServerSideResponse<CustomerDetailDto> response = new DataTableServerSideResponse<CustomerDetailDto>
             {
                 Draw = request.Draw, //used by DataTables api to prevent xss
                 RecordsTotal = _context.Customers.Count() //total number of records before filtering
@@ -48,9 +48,9 @@ namespace AdventureWorks.Controllers.Api
 
             //Pagination
             if (data.Count < request.Start + request.Length) //i.e. start = 51, length = 10, count = 55; 55 < 51 + 10
-                response.Data = _mapper.Map<List<CustomerDto>>(data.GetRange(request.Start, data.Count - request.Start));// i.e. cont GetRange(51, 55-51)
+                response.Data = _mapper.Map<List<CustomerDetailDto>>(data.GetRange(request.Start, data.Count - request.Start));// i.e. cont GetRange(51, 55-51)
             else
-                response.Data = _mapper.Map<List<CustomerDto>>(data.GetRange(request.Start, request.Length));
+                response.Data = _mapper.Map<List<CustomerDetailDto>>(data.GetRange(request.Start, request.Length));
             
             return Ok(response);
         }

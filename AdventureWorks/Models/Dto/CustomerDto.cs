@@ -12,16 +12,12 @@ namespace AdventureWorks.Models.Dto
         public int? StoreID { get; set; }
         public int? TerritoryID { get; set; }
         public string AccountNumber { get; set; }
+        public string DisplayName { get; set; }
+        public string AccountType { get; set; }
     }
 
-    public class CustomerDetailDto
+    public class CustomerDetailDto : CustomerDto
     {
-        public int? CustomerID { get; set; }
-        public int? PersonID { get; set; }
-        public int? StoreID { get; set; }
-        public int? TerritoryID { get; set; }
-        public string AccountNumber { get; set; }
-
         public DateTime ModifiedDate { get; set; }
 
         public virtual PersonDto Person { get; set; }

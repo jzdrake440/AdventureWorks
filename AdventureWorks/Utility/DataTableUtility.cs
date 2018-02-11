@@ -30,6 +30,9 @@ namespace AdventureWorks.Utility
                 if (!column.Searchable)
                     continue;
 
+                if (column.Data == null)
+                    continue;
+
                 Expression targetValue = ToStringExpression(Expression.Property(pe, column.Data)); //i.e. customer.AccountNumber
 
                 if (!String.IsNullOrWhiteSpace(column.Search.Value))
@@ -82,6 +85,9 @@ namespace AdventureWorks.Utility
             foreach (DataTableOrder order in request.Order) //simplify the in data for the compare delegate
             {
                 if (!request.Columns[order.Column].Orderable)
+                    continue;
+
+                if (request.Columns[order.Column].Data == null)
                     continue;
 
                 var prop = typeof(T).GetProperty(

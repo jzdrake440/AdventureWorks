@@ -15,6 +15,7 @@ namespace AdventureWorks.Models.Dto
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Suffix { get; set; }
+        public string DisplayName { get; set; }
     }
 
     public class PersonDetailDto
