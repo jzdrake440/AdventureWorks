@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Web;
 using System.Web.Services.Description;
 using static AdventureWorks.Models.DataTables.DataTableServerSideRequest;
@@ -11,6 +12,11 @@ namespace AdventureWorks.Utility
 {
     public static class DataTableUtility
     {
+        public static List<T> FilterData<T>(DataTableServerSideRequest request, IEnumerable<T> data)
+        {
+            return data.Where(DataTableUtility.SearchPredicate<T>(request)).ToList();
+        }
+
         public static Func<T, bool> SearchPredicate<T>(DataTableServerSideRequest request)
         {
             ParameterExpression pe = Expression.Parameter(typeof(T));
@@ -67,6 +73,87 @@ namespace AdventureWorks.Utility
                 return left;
 
             return Expression.OrElse(left, right);
+        }
+
+        public static void OrderData<T>(DataTableServerSideRequest request, List<T> data)
+        {
+            List<DataTableOrderDataOption> options = new List<DataTableOrderDataOption>();
+
+            foreach (DataTableOrder order in request.Order) //simplify the in data for the compare delegate
+            {
+                if (!request.Columns[order.Column].Orderable)
+                    continue;
+
+                var prop = typeof(T).GetProperty(
+                    request.Columns[order.Column].Data, 
+                    BindingFlags.IgnoreCase | BindingFlags.Instance | BindingFlags.Public);
+
+                bool isNullable = prop.PropertyType.IsGenericType && 
+                    typeof(Nullable<>) == prop.PropertyType.GetGenericTypeDefinition();
+
+                var underlyingType = isNullable ?
+                    prop.PropertyType.GetGenericArguments()[0] :
+                    prop.PropertyType;
+
+                var option = new DataTableOrderDataOption
+                {
+                    Property = prop,
+                    FromNullable = isNullable,
+                    Comparable = underlyingType.GetInterface("IComparable")?.GetMethod("CompareTo"),
+                    Direction = order.Dir
+                };
+
+
+                if (option.Comparable == null) //ensure that the dynamic field is properly comparable
+                    throw new ArgumentException(
+                        String.Format(
+                            "Attempting to sort on uncomparable property {0}.{1}; Implement the IComparable interface.",
+                            typeof(T).FullName,
+                            option.Property.Name)
+                        );
+
+                options.Add(option);
+            }
+
+            data.Sort((t1, t2) =>
+            {
+                foreach (DataTableOrderDataOption option in options)
+                {
+                    var propVal1 = option.Property.GetValue(t1);
+                    var propVal2 = option.Property.GetValue(t2);
+
+                    if (propVal1 == null && propVal2 == null)
+                        continue;
+
+                    if (propVal1 == null)
+                        return option.Dir(-1);
+
+                    if (propVal2 == null)
+                        return option.Dir(1);
+
+                    int c = (int)option.Comparable.Invoke(propVal1, new object[] { propVal2 });
+
+                    if (c != 0)
+                        return option.Dir(c);
+                }
+                return 0;
+            });
+        }
+
+        private class DataTableOrderDataOption
+        {
+            public const string DIRECTION_ASC = "asc";
+            public const string DIRECTION_DESC = "desc";
+
+            public PropertyInfo Property { get; set; }
+            public MethodInfo Comparable { get; set; }
+            public bool FromNullable { get; set; }
+            public string Direction { get; set; }
+
+            public int Dir(int c) //change direction as necessary
+            {
+                return Direction == DIRECTION_ASC ? c : c * -1;
+            }
         }
     }
 }

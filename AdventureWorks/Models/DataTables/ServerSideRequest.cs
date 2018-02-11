@@ -10,6 +10,8 @@ namespace AdventureWorks.Models.DataTables
         public int Draw { get; set; }
         public int Start { get; set; }
         public int Length { get; set; }
+        
+        public DataTableOrder[] Order { get; set; }
         public DataTableColumn[] Columns { get; set; }
         public DataTableSearch Search { get; set; }
 
@@ -26,6 +28,12 @@ namespace AdventureWorks.Models.DataTables
         {
             public string Value { get; set; }
             public bool Regex { get; set; }
+        }
+
+        public class DataTableOrder
+        {
+            public int Column { get; set; }
+            public string Dir { get; set; }
         }
     }
 }

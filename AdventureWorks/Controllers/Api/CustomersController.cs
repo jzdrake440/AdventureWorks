@@ -29,22 +29,26 @@ namespace AdventureWorks.Controllers.Api
         [HttpGet]
         public IHttpActionResult GetCustomers([FromUri]DataTableServerSideRequest request)
         {
-            if (request == null)
+            if (request == null) //called for all customers
                 return Ok(_mapper.Map<List<CustomerDto>>(_context.Customers.ToList()));
 
+            //called specifically from DataTables api
             DataTableServerSideResponse<CustomerDto> response = new DataTableServerSideResponse<CustomerDto>
             {
-                Draw = request.Draw,
-                RecordsTotal = _context.Customers.Count()
+                Draw = request.Draw, //used by DataTables api to prevent xss
+                RecordsTotal = _context.Customers.Count() //total number of records before filtering
             };
 
-            var data = _context.Customers.Where(DataTableUtility.SearchPredicate<Customer>(request)).ToList();
-            response.RecordsFiltered = data.Count();
+            //Search Filtering
+            var data = DataTableUtility.FilterData(request, _context.Customers);
+            response.RecordsFiltered = data.Count(); //total number of records after filtering
 
-            if (data.Count <= 0)
-                response.Data = _mapper.Map<List<CustomerDto>>(data);
-            else if (data.Count < request.Start + request.Length)
-                response.Data = _mapper.Map<List<CustomerDto>>(data.GetRange(request.Start, data.Count - request.Length));
+            //Ordering
+            DataTableUtility.OrderData(request, data);
+
+            //Pagination
+            if (data.Count < request.Start + request.Length) //i.e. start = 51, length = 10, count = 55; 55 < 51 + 10
+                response.Data = _mapper.Map<List<CustomerDto>>(data.GetRange(request.Start, data.Count - request.Start));// i.e. cont GetRange(51, 55-51)
             else
                 response.Data = _mapper.Map<List<CustomerDto>>(data.GetRange(request.Start, request.Length));
             
