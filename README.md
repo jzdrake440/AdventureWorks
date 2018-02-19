@@ -1,3 +1,6 @@
+# This project has been migrated to .NET Core
+## https://github.com/jzdrake440/AdventureWorksCore
+
 # Adventure Works Cycles
 
 <p>The purpose of this project is to demonstrate various .NET technologies.</p>
